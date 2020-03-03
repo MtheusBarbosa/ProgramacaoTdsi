@@ -2,6 +2,7 @@ const express =require('express')
 var app = express()
 var bodyparser = require('body-parser')
 var Aluno = require('./model/aluno')
+var x;
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: false}))
