@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cadastro de alunos - Editar</title>
-</head>
-<body>
+<%-include('cabecalho.ejs')%>
     <h1>Adicionando alunos</h1>
     <form method="POST">
         ID: <input type="text" name="id" readonly><br>
@@ -15,5 +7,4 @@
         Telefone: <input type="text" name="telefone" placeholder="Telefone" value="<%=req.body.telefone%>"><br>
         <input type="submit">
     </form>
-</body>
-</html>
+    <%-include('rodape.ejs')%>

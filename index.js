@@ -9,14 +9,13 @@ app.use(bodyparser.urlencoded({extended: false}))
 
 app.set('view engine','ejs')
 
-app.get('/',function(req,res){
-    res.render('listar.ejs',{})
-})
 
+//create get
 app.get('/add',function(req,res){
-    res.render('adicionar.ejs',{})
+    res.render('adicionar.ejs',{msg: ''})
 })
 
+//create post
 app.post('/add',function(req,res){
     var aluno = new Aluno({
         nome:  req.body.nome,
@@ -24,20 +23,39 @@ app.post('/add',function(req,res){
         telefone: req.body.telefone
     })
     aluno.save(function(err){
-        Aluno.find({}).exec(function(e,docs){
-        console.log(docs);
+        
         if(err){
-            res.render('listar.ejs',{ msg : err, listaAlunos: docs})
+            res.render('adicionar.ejs',{ msg : err})
         }else{
-            res.render('listar.ejs',{ msg: "Salvo", listaAlunos: docs})
+            res.render('adicionar.ejs',{ msg: "Adicionado com sucesso!"})
         }
          });
     })
+
+
+//read get
+app.get('/',function(req,res){
+    Aluno.find({}).exec(function(err,docs){
+        res.render('listar.ejs',{ listaAlunos: docs, msg: ""})
+    })
+
 })
 
 app.get('/edit',function(req,res){
     res.render('editar.ejs',{})
 })
+
+//delete get
+app.get('/del/:id', function(req,res){
+    var aluno = Aluno.findByIdAndDelete(req.params.id, function(err){;
+    if(err){
+        res.redirect('/')
+    } else {
+        res.redirect('/')
+    }
+    });
+});
+
 
 app.listen(3001,function(){
     console.log("Estou escutando na porta 3001!!!")
